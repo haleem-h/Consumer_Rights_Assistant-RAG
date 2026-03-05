@@ -23,8 +23,7 @@ chunks = splitter.split_documents(documents)
 print(f"Created {len(chunks)} chunks")
 
 
-embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-mpnet-base-v2")
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 
 vectorstore = FAISS.from_documents(chunks, embeddings)
 vectorstore.save_local(DB_PATH)
