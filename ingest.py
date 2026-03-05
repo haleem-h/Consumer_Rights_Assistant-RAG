@@ -16,19 +16,15 @@ for file in os.listdir(DOCS_PATH):
 
 print(f"Loaded {len(documents)} pages")
 
-# Strong legal chunking
-splitter = RecursiveCharacterTextSplitter(
-    chunk_size=1200,
-    chunk_overlap=250,
-)
+
+splitter = RecursiveCharacterTextSplitter(chunk_size=1200,chunk_overlap=250,)
 
 chunks = splitter.split_documents(documents)
 print(f"Created {len(chunks)} chunks")
 
-# Strong embedding model
+
 embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-mpnet-base-v2"
-)
+    model_name="sentence-transformers/all-mpnet-base-v2")
 
 vectorstore = FAISS.from_documents(chunks, embeddings)
 vectorstore.save_local(DB_PATH)
